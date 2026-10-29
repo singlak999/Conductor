@@ -1,0 +1,98 @@
+{
+  "_comment": "Headless invocation recipes. {prompt} is replaced by a one-line pointer to the task file. Modes: read = no edits, edit = file edits only, full = edits + shell. read_only:false marks a CLI whose read mode cannot block file writes; auto-routing avoids it for read roles. Edit this file to add a harness or change routing.",
+  "harnesses": {
+    "claude": {
+      "label": "Claude Code",
+      "bins": ["claude"],
+      "version": ["--version"],
+      "env_self": ["CLAUDECODE"],
+      "modes": {
+        "read": ["-p", "{prompt}", "--allowedTools", "Read,Grep,Glob"],
+        "edit": ["-p", "{prompt}", "--permission-mode", "acceptEdits", "--allowedTools", "Read,Edit,Write,Grep,Glob"],
+        "full": ["-p", "{prompt}", "--permission-mode", "acceptEdits", "--allowedTools", "Read,Edit,Write,Grep,Glob,Bash"]
+      },
+      "model_flag": "--model"
+    },
+    "copilot": {
+      "label": "GitHub Copilot CLI",
+      "bins": ["copilot"],
+      "version": ["--version"],
+      "env_self": ["COPILOT_CLI", "COPILOT_AGENT_SESSION_ID"],
+      "modes": {
+        "read": ["-p", "{prompt}", "-s", "--no-ask-user"],
+        "edit": ["-p", "{prompt}", "-s", "--no-ask-user", "--allow-tool=write"],
+        "full": ["-p", "{prompt}", "-s", "--no-ask-user", "--allow-all-tools"]
+      },
+      "model_flag": "--model"
+    },
+    "codex": {
+      "label": "OpenAI Codex CLI",
+      "bins": ["codex"],
+      "version": ["--version"],
+      "env_self": ["CODEX_SANDBOX", "CODEX_THREAD_ID"],
+      "modes": {
+        "read": ["exec", "--skip-git-repo-check", "-s", "read-only", "{prompt}"],
+        "edit": ["exec", "--skip-git-repo-check", "-s", "workspace-write", "{prompt}"],
+        "full": ["exec", "--skip-git-repo-check", "-s", "workspace-write", "{prompt}"]
+      },
+      "model_flag": "-m"
+    },
+    "gemini": {
+      "label": "Gemini CLI",
+      "bins": ["gemini"],
+      "version": ["--version"],
+      "env_self": ["GEMINI_CLI"],
+      "modes": {
+        "read": ["-p", "{prompt}", "--approval-mode", "plan", "--skip-trust"],
+        "edit": ["-p", "{prompt}", "--approval-mode", "auto_edit", "--skip-trust"],
+        "full": ["-p", "{prompt}", "--approval-mode", "yolo", "--skip-trust"]
+      },
+      "model_flag": "-m"
+    },
+    "antigravity": {
+      "label": "Google Antigravity (agy)",
+      "bins": ["agy"],
+      "version": ["--version"],
+      "env_self": ["ANTIGRAVITY_AGENT"],
+      "modes": {
+        "read": ["--print", "{prompt}", "--mode", "plan", "--sandbox", "--dangerously-skip-permissions"],
+        "edit": ["--print", "{prompt}", "--mode", "accept-edits", "--sandbox", "--dangerously-skip-permissions"],
+        "full": ["--print", "{prompt}", "--mode", "auto", "--dangerously-skip-permissions"]
+      },
+      "model_flag": "--model"
+    },
+    "hermes": {
+      "label": "Hermes Agent",
+      "bins": ["hermes"],
+      "version": ["--version"],
+      "env_self": ["HERMES_SESSION_ID"],
+      "read_only": false,
+      "modes": {
+        "read": ["-z", "{prompt}"],
+        "edit": ["-z", "{prompt}"],
+        "full": ["-z", "{prompt}", "--yolo"]
+      },
+      "model_flag": "-m"
+    },
+    "openclaw": {
+      "label": "OpenClaw",
+      "bins": ["openclaw"],
+      "version": ["--version"],
+      "env_self": ["OPENCLAW_SESSION"],
+      "read_only": false,
+      "modes": {
+        "read": ["agent", "--local", "--message", "{prompt}"],
+        "edit": ["agent", "--local", "--message", "{prompt}"],
+        "full": ["agent", "--local", "--message", "{prompt}"]
+      },
+      "model_flag": null
+    }
+  },
+  "roles": {
+    "implement": {"mode": "full", "prefer": ["claude", "codex", "copilot", "antigravity", "gemini", "openclaw", "hermes"]},
+    "test": {"mode": "full", "prefer": ["codex", "claude", "copilot", "gemini", "antigravity", "hermes", "openclaw"]},
+    "review": {"mode": "read", "prefer": ["codex", "claude", "copilot", "gemini", "antigravity", "hermes", "openclaw"]},
+    "research": {"mode": "read", "prefer": ["gemini", "antigravity", "claude", "copilot", "codex", "hermes", "openclaw"]},
+    "docs": {"mode": "edit", "prefer": ["claude", "gemini", "copilot", "codex", "antigravity", "hermes", "openclaw"]}
+  }
+}

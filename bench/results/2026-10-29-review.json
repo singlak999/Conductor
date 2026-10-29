@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-29",
+  "machine": "Windows 10, Python 3.11.15",
+  "harnesses": [
+    "claude",
+    "copilot",
+    "antigravity",
+    "hermes"
+  ],
+  "review": {
+    "seeded_bugs": 8,
+    "per_harness": {
+      "claude": {
+        "status": "ok",
+        "seconds": 41.7,
+        "found": [
+          "add_tag",
+          "chunk",
+          "find_by_email",
+          "is_adult",
+          "median",
+          "oldest",
+          "paginate",
+          "retry"
+        ],
+        "recall": "8/8"
+      },
+      "copilot": {
+        "status": "ok",
+        "seconds": 57.8,
+        "found": [
+          "add_tag",
+          "chunk",
+          "find_by_email",
+          "is_adult",
+          "median",
+          "oldest",
+          "paginate",
+          "retry"
+        ],
+        "recall": "8/8"
+      },
+      "antigravity": {
+        "status": "ok",
+        "seconds": 276.6,
+        "found": [
+          "add_tag",
+          "chunk",
+          "find_by_email",
+          "is_adult",
+          "median",
+          "oldest",
+          "paginate",
+          "retry"
+        ],
+        "recall": "8/8"
+      },
+      "hermes": {
+        "status": "ok",
+        "seconds": 69.9,
+        "found": [
+          "add_tag",
+          "chunk",
+          "find_by_email",
+          "is_adult",
+          "median",
+          "oldest",
+          "paginate",
+          "retry"
+        ],
+        "recall": "8/8"
+      }
+    },
+    "union_recall": "8/8",
+    "wall_seconds": 276.7,
+    "file_unmodified": true
+  }
+}

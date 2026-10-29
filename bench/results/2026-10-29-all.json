@@ -1,0 +1,216 @@
+{
+  "date": "2026-10-29",
+  "machine": "Windows 10, Python 3.11.15",
+  "detect": {
+    "detect_seconds": 16.09,
+    "installed": [
+      "claude 2.1.220 (Claude Code)",
+      "copilot GitHub Copilot CLI 1.0.105.",
+      "codex codex-cli 0.139.0",
+      "gemini 0.39.1",
+      "antigravity 1.4.10",
+      "hermes Hermes Agent v0.21.4 (2026.9.21) \u00c2\u00b7 upstream be65eab5"
+    ],
+    "probe": {
+      "claude": {
+        "ready": true,
+        "seconds": 23.0,
+        "note": ""
+      },
+      "copilot": {
+        "ready": true,
+        "seconds": 13.8,
+        "note": ""
+      },
+      "codex": {
+        "ready": false,
+        "seconds": 35.7,
+        "note": "2026-10-29T05:46:35.522752Z ERROR codex_login::auth::manager: Failed to refresh token: 401 Unauthorized: {"
+      },
+      "gemini": {
+        "ready": false,
+        "seconds": 9.8,
+        "note": "Error authenticating: IneligibleTierError: This client is no longer supported for Gemini Code Assist for individuals. To continue using Gemini, please migrate t"
+      },
+      "antigravity": {
+        "ready": true,
+        "seconds": 21.7,
+        "note": ""
+      },
+      "hermes": {
+        "ready": true,
+        "seconds": 21.5,
+        "note": ""
+      }
+    }
+  },
+  "harnesses": [
+    "claude",
+    "copilot",
+    "antigravity",
+    "hermes"
+  ],
+  "parallel": {
+    "sequential, 1 agent (claude)": {
+      "wall_seconds": 225.4,
+      "passed": 4,
+      "total": 4,
+      "per_task": {
+        "slugify": {
+          "harness": "claude",
+          "status": "ok",
+          "seconds": 59.0,
+          "hidden_tests": true
+        },
+        "duration": {
+          "harness": "claude",
+          "status": "ok",
+          "seconds": 50.2,
+          "hidden_tests": true
+        },
+        "roman": {
+          "harness": "claude",
+          "status": "ok",
+          "seconds": 76.2,
+          "hidden_tests": true
+        },
+        "intervals": {
+          "harness": "claude",
+          "status": "ok",
+          "seconds": 40.0,
+          "hidden_tests": true
+        }
+      }
+    },
+    "conductor fanout, 1 agent x4 (claude)": {
+      "wall_seconds": 107.8,
+      "passed": 4,
+      "total": 4,
+      "per_task": {
+        "slugify": {
+          "harness": "claude",
+          "status": "ok",
+          "seconds": 91.0,
+          "hidden_tests": true
+        },
+        "duration": {
+          "harness": "claude",
+          "status": "ok",
+          "seconds": 59.3,
+          "hidden_tests": true
+        },
+        "roman": {
+          "harness": "claude",
+          "status": "ok",
+          "seconds": 97.8,
+          "hidden_tests": true
+        },
+        "intervals": {
+          "harness": "claude",
+          "status": "ok",
+          "seconds": 88.1,
+          "hidden_tests": true
+        }
+      }
+    },
+    "conductor fanout, 4 agents": {
+      "wall_seconds": 206.2,
+      "passed": 4,
+      "total": 4,
+      "per_task": {
+        "slugify": {
+          "harness": "claude",
+          "status": "ok",
+          "seconds": 94.6,
+          "hidden_tests": true
+        },
+        "duration": {
+          "harness": "copilot",
+          "status": "ok",
+          "seconds": 79.6,
+          "hidden_tests": true
+        },
+        "roman": {
+          "harness": "antigravity",
+          "status": "ok",
+          "seconds": 206.2,
+          "hidden_tests": true
+        },
+        "intervals": {
+          "harness": "hermes",
+          "status": "ok",
+          "seconds": 100.7,
+          "hidden_tests": true
+        }
+      }
+    }
+  },
+  "review": {
+    "seeded_bugs": 8,
+    "per_harness": {
+      "claude": {
+        "status": "ok",
+        "seconds": 43.2,
+        "found": [
+          "add_tag",
+          "chunk",
+          "find_by_email",
+          "is_adult",
+          "median",
+          "oldest",
+          "paginate",
+          "retry"
+        ],
+        "recall": "8/8"
+      },
+      "copilot": {
+        "status": "ok",
+        "seconds": 49.9,
+        "found": [
+          "add_tag",
+          "chunk",
+          "find_by_email",
+          "is_adult",
+          "median",
+          "oldest",
+          "paginate",
+          "retry"
+        ],
+        "recall": "8/8"
+      },
+      "antigravity": {
+        "status": "ok",
+        "seconds": 126.5,
+        "found": [
+          "add_tag",
+          "chunk",
+          "find_by_email",
+          "is_adult",
+          "median",
+          "oldest",
+          "paginate",
+          "retry"
+        ],
+        "recall": "8/8"
+      },
+      "hermes": {
+        "status": "ok",
+        "seconds": 70.9,
+        "found": [
+          "add_tag",
+          "chunk",
+          "find_by_email",
+          "is_adult",
+          "median",
+          "oldest",
+          "paginate",
+          "retry"
+        ],
+        "recall": "8/8"
+      }
+    },
+    "union_recall": "8/8",
+    "wall_seconds": 126.5,
+    "file_unmodified": true
+  }
+}
